@@ -2,26 +2,94 @@
 <html>
 
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Send an Email</title>
+    <link type="text/css" rel="stylesheet" href="https://thereisnoearthb.com/css/materialize.css"
+      media="screen,projection" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
-  <body>
+  <body id="body" onload="mail()">
+    <div class="container">
+      <h5 style="margin-bottom: .7em; font-family: sans-serif;">
+        In case your email application does not automatically open, please copy paste and
+        send ✊
+      </h5>
+      <p class="left-align" style="margin: 2em auto;">
+        <button id="copy" class="btn waves-effect waves-light" type="submit" name="action">
+          Copy
+          <i class="material-icons right">content_copy</i>
+        </button>
+        <button id="send" class="btn red waves-effect waves-light" type="submit" name="action">
+          Send Mail
+          <i class="material-icons right">send</i>
+        </button>
+      </p>
+      <main id="content">
+        <p>
+          TO: sudipto@ghosh.pro
+          <br />
+          CC: sudipto@ghosh.pro
+        </p>
+        <p>
+          To,
+        </p>
+        <p>
+          DM
+        </p>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe eos sunt consequuntur nulla quos aliquam tenetur voluptatibus, dolores minus praesentium.
+
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quas explicabo sunt quam. Aliquid voluptas quos blanditiis officiis! Eaque est architecto porro? Nam odio necessitatibus vel nostrum sequi ut iure! Dolorem earum aliquid, nemo, reprehenderit dignissimos error facilis suscipit nesciunt voluptas aspernatur atque incidunt corrupti ipsum nostrum ipsa neque. Non dicta numquam architecto consequuntur adipisci cupiditate molestias eius vitae itaque a soluta nulla, aspernatur obcaecati eum hic delectus veniam fugit voluptatum autem? Quis debitis totam tempore vitae quaerat provident minima repellat voluptates repellendus ipsam, laudantium vero nostrum facere tenetur doloremque nemo voluptas cum. Eius quasi nihil vel unde voluptatem officia!
+        </p>
+        <ul>
+          <li style="list-style: disc !important;">
+            Assistant to DM
+          </li>
+        </ul>
+      </main>
+    </div>
+
     <script>
-      (() => {
-        const sites = [
-          'androidmail.html', 'iphonemail.html'
+      const mail = () => {
+        const to = "sudipto@ghosh.pro";
+        const cc = "sudipto@ghosh.pro";
+        const bcc = "sudipto@ghosh.pro";
+
+        const SubjectLine = [
+          'Example Subject'
         ];
 
-        const iOS =
-          /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-          !window.MSStream;
 
-        if (iOS)
-          location.href = sites[1];
-        else
-          location.href = sites[0];
-      })();
+        const OpeningLine = [
+          "This should be the opening line of the email.",
+        ];
+
+        const BodyOfEmail = "This should be the body of the email.";
+
+        const EndingLine = [
+          "This should be the ending line of the email.",
+        ];
+
+        const sub = parseInt(Math.random() * SubjectLine.length);
+        const Oline = parseInt(Math.random() * OpeningLine.length);
+        const Eline = parseInt(Math.random() * EndingLine.length);
+        const body = `${OpeningLine[Oline]}%0A%0ASub: ${SubjectLine[sub]}%0A%0A${BodyOfEmail}%0A${EndingLine[Eline]}`;
+
+        const message = `mailto:${to}?cc=${cc}&bcc=${bcc}&subject=${SubjectLine[sub]}&body=${body}`;
+
+        location.href = message;
+      };
+
+      document.getElementById('send').addEventListener('click', mail);
+      document.getElementById('copy').addEventListener('click', () => {
+        const text = document.getElementById('content').innerText;
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      });
     </script>
   </body>
-
-</html>
